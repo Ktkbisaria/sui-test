@@ -3,13 +3,16 @@ import axios from 'axios';
 
 const BASE_URL = 'https://www.gocomet.com/api/assignment';
 
-export const getHotelNames = async () => {
+// api.js
+export const fetchHotelNames = async () => {
     const response = await fetch('https://www.gocomet.com/api/assignment/hotels-name');
-    const data = await response.json();
-    return data;
+    if (!response.ok) throw new Error('Failed to fetch hotel names');
+    return response.json();
   };
   
-  export const getHotelsList = async (page, size) => {
+
+  
+  export const fetchHotelsList = async (page, size) => {
     const response = await fetch(`https://www.gocomet.com/api/assignment/hotels?page=${page}&size=${size}`);
     const data = await response.json();
     return data;
