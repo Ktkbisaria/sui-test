@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000
+  }
+  
+  .logo {
+    flex: 1; /* Allows the logo to align to the far left */
+    height: 100px;
+    width: 100px;
+  }
+  
+  .logo a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navigation {
+    display: flex;
+    flex: 2; /* Distributes extra space between logo and links */
+    justify-content: space-evenly; /* Evenly spaces the links */
+  }
+  
+  .navigation a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+  }
+  
+  .navigation a:hover {
+    text-decoration: underline;
+  }
+  

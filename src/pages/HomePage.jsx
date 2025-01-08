@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import Header from './Header';
 
 function HomePage() {
   const [searchData, setSearchData] = useState({
@@ -30,7 +31,9 @@ function HomePage() {
 
   return (
     <div className="home-page">
+      <Header></Header>
       <header className="hero-section">
+      
         <h1>Find Your Perfect Stay</h1>
         <div className="search-bar">
           <input
