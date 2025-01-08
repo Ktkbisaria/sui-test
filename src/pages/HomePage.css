@@ -1,0 +1,40 @@
+.homepage {
+    font-family: Arial, sans-serif;
+  }
+  
+  .hero-section {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f5f5f5;
+  }
+  
+  .search-bar {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .explore-hotels {
+    padding: 2rem;
+  }
+  
+  .hotels-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .hotel-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .hotel-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
