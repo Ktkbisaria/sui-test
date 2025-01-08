@@ -9,18 +9,26 @@
   
   .logo {
     flex: 1; /* Allows the logo to align to the far left */
-    height: 100px;
-    width: 100px;
+    height:100px;/* Set height for the logo image */
+    width: 100px; /* Set width for the logo image */
+    margin-left: -050px;
+    margin-top: -030px;
+
+  }
+  .logo img {
+    width: auto;
+    height: 060px;
   }
   
   .logo a {
     text-decoration: none;
-    color: #fff;
+    color: #000;
     font-size: 24px;
     font-weight: bold;
   }
   
   .navigation {
+    margin-top: -070px;
     display: flex;
     flex: 2; /* Distributes extra space between logo and links */
     justify-content: space-evenly; /* Evenly spaces the links */
@@ -28,7 +36,7 @@
   
   .navigation a {
     text-decoration: none;
-    color: #fff;
+    color: #000;
     font-size: 18px;
   }
   
