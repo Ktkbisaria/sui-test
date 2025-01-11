@@ -28,6 +28,7 @@ export const fetchHotelsList = async (page, size) => {
     });
     return response.data;
   } catch (error) {
+    console.error('Error fetching hotels list:', error.response || error.message);
     throw new Error('Failed to fetch hotels list');
   }
 };
