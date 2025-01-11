@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Star, MapPin, Users } from "lucide-react";
 import './HotelDetails.css';
+import { Toaster } from 'react-hot-toast';
+import BookingModal from './BookingModal';
 
 const HotelDetails = () => {
   const { id } = useParams();
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
     const fetchHotelDetails = async () => {
@@ -84,12 +88,20 @@ const HotelDetails = () => {
             <button className="view-facilities">
               View facilities
             </button>
-            <button className="book-now">
-              Book Now
-            </button>
+            <button 
+  className="book-now"
+  onClick={() => {
+    setSelectedRoom(room);
+    setIsBookingModalOpen(true);
+  }}
+>
+  Book Now
+</button>
+
           </div>
         </div>
       </div>
+      
     );
   };
 
@@ -128,7 +140,20 @@ const HotelDetails = () => {
           </div>
         </div>
       </div>
+      <Toaster />
+{selectedRoom && (
+  <BookingModal
+    isOpen={isBookingModalOpen}
+    onClose={() => {
+      setIsBookingModalOpen(false);
+      setSelectedRoom(null);
+    }}
+    hotelName={hotel.name}
+    roomName={selectedRoom.name}
+  />
+)}
     </div>
+    
   );
 };
 
