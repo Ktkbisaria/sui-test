@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Star, MapPin, Users } from "lucide-react";
-import './HotelDetails.css'
+import './HotelDetails.css';
 
 const HotelDetails = () => {
   const { id } = useParams();
@@ -33,7 +33,7 @@ const HotelDetails = () => {
   if (loading)
     return <div className="loading-screen">Loading...</div>;
   if (error)
-    return <div className="loading-screen">Error: {error}</div>;
+    return <div className="error-screen">Error: {error}</div>;
 
   const RoomCard = ({ room }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -56,26 +56,37 @@ const HotelDetails = () => {
             alt={room.name}
             className="room-image"
           />
-          <div className="image-index">
-            {currentImageIndex + 1} / {room.image_urls.length}
+          <div className="image-controls">
+            <button onClick={prevImage} className="nav-button prev">
+              <ChevronLeft size={24} />
+            </button>
+            <div className="image-counter">
+              {currentImageIndex + 1}/{room.image_urls.length}
+            </div>
+            <button onClick={nextImage} className="nav-button next">
+              <ChevronRight size={24} />
+            </button>
           </div>
-          <button onClick={prevImage} className="image-nav prev">
-            <ChevronLeft />
-          </button>
-          <button onClick={nextImage} className="image-nav next">
-            <ChevronRight />
-          </button>
         </div>
-        <div className="details">
-          <h3>{room.name}</h3>
-          <div className="info">
-            <Users />
-            <span>2</span>
+        <div className="room-details">
+          <div className="room-header">
+            <h3 className="room-title">{room.name}</h3>
+            <div className="occupancy">
+              <Users size={18} />
+              <span>2</span>
+            </div>
           </div>
-          <div className="price">₹ {room.price} / night</div>
-          <div className="actions">
-            <button className="view-facilities">View facilities</button>
-            <button className="book-now">Book Now</button>
+          <div className="price-section">
+            <span className="price">₹ {room.price}</span>
+            <span className="per-night">per night</span>
+          </div>
+          <div className="room-actions">
+            <button className="view-facilities">
+              View facilities
+            </button>
+            <button className="book-now">
+              Book Now
+            </button>
           </div>
         </div>
       </div>
@@ -87,30 +98,34 @@ const HotelDetails = () => {
       <div className="hero">
         <img src={hotel.image_url} alt={hotel.name} className="hero-image" />
         <div className="hero-overlay">
-          <h1>{hotel.name}</h1>
-          <div className="info">
-            <div>
-              <MapPin />
-              {hotel.city}, India
-            </div>
-            <div>
-              <Star />
-              {hotel.rating}
+          <div className="hero-content">
+            <h1>{hotel.name}</h1>
+            <div className="hotel-info">
+              <div className="location">
+                <MapPin size={20} />
+                <span>{hotel.city}, India</span>
+              </div>
+              <div className="rating">
+                <Star size={20} className="star-icon" />
+                <span>{hotel.rating}</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="container">
-        <div className="room-cards">
+        <div className="room-cards-container">
           {hotel.rooms.map((room) => (
             <RoomCard key={room.id} room={room} />
           ))}
         </div>
 
-        <div className="about">
+        <div className="about-section">
           <h2>About {hotel.name}</h2>
-          <p>{hotel.description}</p>
+          <div className="about-content">
+            <p>{hotel.description}</p>
+          </div>
         </div>
       </div>
     </div>
