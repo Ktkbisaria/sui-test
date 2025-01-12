@@ -29,6 +29,7 @@
     color: #333;
   }
   
+
   .bgimg-container {
     position: absolute;
     top: -10%;
@@ -91,15 +92,10 @@
     position: relative;
     flex: 2;
     opacity: 100%;
-    width: 50%;
+    width: 0px;
     border: none;
   }
-/* 
-  .hotelName{
-    width: 10px                                       ;
-    border: solid 2px black;
 
-  } */
   
   .search-bar input {
     padding: 12px;
