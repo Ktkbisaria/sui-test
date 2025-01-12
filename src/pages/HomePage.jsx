@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
+import Header from './Header';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');

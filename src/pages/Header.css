@@ -9,8 +9,13 @@
   
   .logo {
     flex: 1; /* Allows the logo to align to the far left */
-    height: 100px;
-    width: 100px;
+  margin-top: -40px;
+  margin-left: -180px;
+  }
+  
+  .logo img {
+    height: 50px;
+    width: auto;
   }
   
   .logo a {
