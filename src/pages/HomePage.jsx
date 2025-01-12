@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Star } from 'lucide-react';
 import './HomePage.css';
 import Header from './Header';
 import bgimg from '../assets/bgimg.png'
@@ -349,6 +350,10 @@ const handleFilterChange = (e, category) => {
           <p>₹{hotel.minPrice} - ₹{hotel.maxPrice}</p>
           <button onClick={() => navigate(`/hotels/${hotel.id}`)}>View</button>
         </div>
+        <div className="rating">
+            <Star size={16} fill="gold" stroke="gold" />
+            <span>{Number(hotel.rating).toFixed(1)}</span>
+          </div>
       </div>
     </div>
   ))}

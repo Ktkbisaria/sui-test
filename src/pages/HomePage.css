@@ -279,7 +279,7 @@
   
   .hotels-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusts based on screen size */
+    grid-template-columns: repeat(auto-fill, minmax(300px,)); /* Adjusts based on screen size */
     gap: 20px; /* Space between cards */
   }
   
@@ -362,7 +362,31 @@
     background-color: #00070d; /* Even darker blue on click */
     transform: translateY(1px); /* Subtle depression effect */
   }
-    
+  .card-image-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .rating {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 4px 8px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .rating span {
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  
+  change the colours so that the rating would be shown on a light abckgorund!!!    
   /* Pagination */
   .pagination {
     display: flex;
