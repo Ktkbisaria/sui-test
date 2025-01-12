@@ -285,9 +285,9 @@
   
   .hotel-card {
     border: 1px solid #d1d5db; /* Light gray border for subtle separation */
-    border-radius: 10px; /* Smooth rounded edges */
+    border-radius: 2px; /* Smooth rounded edges */
     overflow: hidden;
-    height: 350px; /* Maintain image size and card proportion */
+    height: 250px; /* Maintain image size and card proportion */
     background-color: #ffffff; /* Clean white background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Professional shadow */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
@@ -306,58 +306,60 @@
   }
   
   .hotel-details {
-    padding: 12px 16px; /* Comfortable spacing for details */
+    padding: 12px 16px 8px; /* Reduced bottom padding */
     background-color: #ffffff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   .hotel-details h3 {
-    font-size: 18px; /* Professional font size for the title */
-    margin-bottom: 8px;
-    color: #000000; /* Black for a formal look */
-    font-weight: 600; /* Bold for emphasis */
-    font-family: Arial, sans-serif; /* Clean and modern font */
+    font-size: 18px;
+    
+    color: #000000;
+    font-weight: 600;
+    font-family: Arial, sans-serif;
   }
   
   .hotel-details p {
-    font-size: 14px; /* Neat font size for descriptions */
-    color: #4b5563; /* Subtle gray for muted text */
-    margin: 4px 0;
-  }
-  
-  .price-and-button {
-    display: flex;
-    justify-content: space-between; /* Aligns price and button neatly */
-    align-items: center;
-    margin-top: 12px;
-  }
-  
-  .price-and-button p {
-    font-size: 16px; /* Formal font for pricing */
-    font-weight: 700; /* Bold for emphasis */
-    color: #000000; /* Black for the price */
-    margin: 0;
-  }
-  
-  .price-and-button button {
-    padding: 6px 12px; /* Comfortable button size */
-    background-color: #007bff; /* Formal blue */
-    color: #ffffff; /* White text for contrast */
-    border: none;
-    border-radius: 4px; /* Subtle rounding for a clean look */
     font-size: 14px;
-    font-weight: 600; /* Slightly bold for prominence */
-    cursor: pointer;
-    font-family: Arial, sans-serif; /* Consistent font */
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+    color: #4b5563;
+    margin: 2px 0; /* Reduced margin */
   }
-  
+    
+.price-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px; /* Reduced margin */
+}
+
+.price-and-button button {
+  padding: 4px 10px; /* Smaller padding */
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px; /* Slightly smaller font */
+  font-weight: 600;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.price-and-button p {
+  font-size: 15px; /* Slightly smaller font */
+  font-weight: 700;
+  color: #000000;
+  margin: 0;
+}  
   .price-and-button button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #020e1c; /* Darker blue on hover */
     transform: translateY(-2px); /* Lift effect */
   }
   
   .price-and-button button:active {
-    background-color: #003f7f; /* Even darker blue on click */
+    background-color: #00070d; /* Even darker blue on click */
     transform: translateY(1px); /* Subtle depression effect */
   }
     
