@@ -20,12 +20,13 @@
   
   .logo a {
     text-decoration: none;
-    color: #fff;
+    color: #000;
     font-size: 24px;
     font-weight: bold;
   }
   
   .navigation {
+    margin-top: -070px;
     display: flex;
     flex: 2; /* Distributes extra space between logo and links */
     justify-content: space-evenly; /* Evenly spaces the links */
@@ -33,7 +34,7 @@
   
   .navigation a {
     text-decoration: none;
-    color: #fff;
+    color: #000;
     font-size: 18px;
   }
   
