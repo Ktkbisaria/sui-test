@@ -279,63 +279,88 @@
   
   .hotels-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-    /* height: 50px; */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjusts based on screen size */
+    gap: 20px; /* Space between cards */
   }
   
   .hotel-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+    border: 1px solid #d1d5db; /* Light gray border for subtle separation */
+    border-radius: 10px; /* Smooth rounded edges */
     overflow: hidden;
-    height: 350px;
-    padding: 20px;
-    /* height: 10px; */
+    height: 350px; /* Maintain image size and card proportion */
+    background-color: #ffffff; /* Clean white background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Professional shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+  }
+  
+  .hotel-card:hover {
+    transform: translateY(-3px); /* Slight lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow */
   }
   
   .hotel-card img {
-   
-    width: 90%;
-    
-    height: 50%;
-    object-fit: cover;
+    width: 100%; /* Ensure full width */
+    height: 200px; /* Maintain image size */
+    object-fit: cover; /* Retain aspect ratio */
+    border-bottom: 1px solid #d1d5db; /* Subtle separator */
   }
   
   .hotel-details {
-    padding: 6px;
-    height: 1px;
-    background-color: #fff;
+    padding: 12px 16px; /* Comfortable spacing for details */
+    background-color: #ffffff;
   }
   
   .hotel-details h3 {
-    padding: 1px;
-    font-size: 18px;
+    font-size: 18px; /* Professional font size for the title */
     margin-bottom: 8px;
-    color: #1f2937;
+    color: #000000; /* Black for a formal look */
+    font-weight: 600; /* Bold for emphasis */
+    font-family: Arial, sans-serif; /* Clean and modern font */
+  }
+  
+  .hotel-details p {
+    font-size: 14px; /* Neat font size for descriptions */
+    color: #4b5563; /* Subtle gray for muted text */
+    margin: 4px 0;
   }
   
   .price-and-button {
     display: flex;
-    align-items: center; /* Align the button and price on the same line */
-    gap: 10px; /* Add space between the price and the button */
+    justify-content: space-between; /* Aligns price and button neatly */
+    align-items: center;
+    margin-top: 12px;
   }
   
   .price-and-button p {
+    font-size: 16px; /* Formal font for pricing */
+    font-weight: 700; /* Bold for emphasis */
+    color: #000000; /* Black for the price */
     margin: 0;
   }
   
   .price-and-button button {
-    padding: 5px 10px;
-    background-color: #007BFF;
-    color: white;
+    padding: 6px 12px; /* Comfortable button size */
+    background-color: #007bff; /* Formal blue */
+    color: #ffffff; /* White text for contrast */
     border: none;
+    border-radius: 4px; /* Subtle rounding for a clean look */
+    font-size: 14px;
+    font-weight: 600; /* Slightly bold for prominence */
     cursor: pointer;
+    font-family: Arial, sans-serif; /* Consistent font */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
   }
   
   .price-and-button button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Lift effect */
   }
   
+  .price-and-button button:active {
+    background-color: #003f7f; /* Even darker blue on click */
+    transform: translateY(1px); /* Subtle depression effect */
+  }
+    
   /* Pagination */
   .pagination {
     display: flex;
