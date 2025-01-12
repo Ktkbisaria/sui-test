@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, Star, MapPin, Users } from "lucide-react";
 import './HotelDetails.css';
 import { Toaster } from 'react-hot-toast';
 import BookingModal from './BookingModal';
+import FacilitiesModal from './FacilitiesModal';
 
 const HotelDetails = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ const HotelDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [isFacilitiesModalOpen, setIsFacilitiesModalOpen] = useState(false);
   const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
@@ -51,6 +53,11 @@ const HotelDetails = () => {
       e.stopPropagation();
       setCurrentImageIndex((prev) => (prev - 1 + room.image_urls.length) % room.image_urls.length);
     };
+    const handleViewFacilities = (e) => {
+      e.stopPropagation();
+      setSelectedRoom(room);
+      setIsFacilitiesModalOpen(true);
+    };
 
     return (
       <div className="room-card">
@@ -85,7 +92,10 @@ const HotelDetails = () => {
             <span className="per-night">per night</span>
           </div>
           <div className="room-actions">
-            <button className="view-facilities">
+          <button 
+              className="view-facilities"
+              onClick={handleViewFacilities}
+            >
               View facilities
             </button>
             <button 
@@ -140,20 +150,32 @@ const HotelDetails = () => {
       </div>
       <Toaster />
       {selectedRoom && (
-        <BookingModal
-          isOpen={isBookingModalOpen}
-          onClose={() => {
-            setIsBookingModalOpen(false);
-            setSelectedRoom(null);
-          }}
-          hotelName={hotel.name}
-          roomName={selectedRoom.name}
-          roomImage={selectedRoom.image_urls[0]}
-          amenities={selectedRoom.amenities}
-        />
+        <>
+          <BookingModal
+            isOpen={isBookingModalOpen}
+            onClose={() => {
+              setIsBookingModalOpen(false);
+              setSelectedRoom(null);
+            }}
+            hotelName={hotel.name}
+            roomName={selectedRoom.name}
+            roomImage={selectedRoom.image_urls[0]}
+            amenities={selectedRoom.amenities}
+          />
+          <FacilitiesModal
+            isOpen={isFacilitiesModalOpen}
+            onClose={() => {
+              setIsFacilitiesModalOpen(false);
+              setSelectedRoom(null);
+            }}
+            roomName={selectedRoom.name}
+            amenities={selectedRoom.amenities}
+          />
+        </>
       )}
     </div>
   );
 };
+   
 
 export default HotelDetails;
