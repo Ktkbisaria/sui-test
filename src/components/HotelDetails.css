@@ -22,6 +22,7 @@
   height: 297px;
   margin: 0 auto;
   overflow: hidden;
+  padding-top: var(--header-height); /* Use a CSS variable or calc if needed */
 }
 
 .hero-image {
