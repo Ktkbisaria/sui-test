@@ -14,6 +14,7 @@ function HomePage() {
   const [searchData, setSearchData] = useState({
     selectedHotel: null,
     checkInDate: '',
+    hotelId: null, // Added hotelId to track selected hotel's ID
     checkOutDate: '',
     persons: 1,
   });
@@ -111,33 +112,52 @@ function HomePage() {
   }, [searchQuery]);
 
   const handleSearchSelect = (hotel) => {
-    setSearchData(prev => ({ ...prev, selectedHotel: hotel }));
+    setSearchData(prev => ({ 
+      ...prev, 
+      selectedHotel: hotel,
+      hotelId: hotel.id // Store the hotel ID when selected
+    }));
     setSearchQuery(hotel.name);
     setShowSearchResults(false);
   };
 
-  const handleInputChange = (e) => {
+
+ const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'hotelSearch') {
       setSearchQuery(value);
       if (!value) {
-        setSearchData(prev => ({ ...prev, selectedHotel: null }));
+        setSearchData(prev => ({ 
+          ...prev, 
+          selectedHotel: null,
+          hotelId: null // Clear hotel ID when search is cleared
+        }));
       }
     } else {
       setSearchData(prev => ({ ...prev, [name]: value }));
     }
   };
 
+
   const handleSearch = () => {
-    const { selectedHotel, checkInDate, checkOutDate, persons } = searchData;
-    if (!selectedHotel || !checkInDate || !checkOutDate || persons < 1) {
+    const { hotelId, checkInDate, checkOutDate, persons } = searchData;
+    if (!hotelId || !checkInDate || !checkOutDate || persons < 1) {
       setError('All fields are mandatory!');
       return;
     }
     setError('');
-    navigate('/explore-hotels', { state: { searchData } });
+    // Navigate to the hotel detail page with the specific hotel ID
+    navigate(`/hotels/${hotelId}`, { 
+      state: { 
+        searchData: {
+          ...searchData,
+          checkInDate,
+          checkOutDate,
+          persons
+        } 
+      }
+    });
   };
-
 // Add this function before the `return` statement of the component
 const applyFilters = () => {
   let filtered = [...hotels];
