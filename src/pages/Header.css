@@ -26,7 +26,7 @@
   }
   
   .navigation {
-    margin-top: -070px;
+    margin-top: -050px;
     display: flex;
     flex: 2; /* Distributes extra space between logo and links */
     justify-content: space-evenly; /* Evenly spaces the links */

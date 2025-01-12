@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './HomePage.css';
 import Header from './Header';
+import bgimg from '../assets/bgimg.png'
+import mdi_people from '../assets/mdi_people.png';
 
 function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const hotelsPerPage = 10;
+
   const [searchData, setSearchData] = useState({
     selectedHotel: null,
     checkInDate: '',
@@ -38,6 +43,42 @@ function HomePage() {
     } catch (err) {
       console.error('Error fetching hotels:', err);
     }
+  };
+
+  const indexOfLastHotel = currentPage * hotelsPerPage;
+  const indexOfFirstHotel = indexOfLastHotel - hotelsPerPage;
+
+  const currentHotels = filteredHotels.slice(indexOfFirstHotel, indexOfLastHotel);
+
+  // Function to handle page change
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(filteredHotels.length / hotelsPerPage);
+
+  useEffect(() => {
+    const fetchHotels = async () => {
+      try {
+        const response = await fetch(
+          `https://www.gocomet.com/api/assignment/hotels?page=${currentPage}&size=${hotelsPerPage}`
+        );
+        const data = await response.json();
+
+        // Assuming the API returns an array of hotels with image_url
+        if (data && data.hotels) {
+          setHotels(data.hotels);
+        }
+      } catch (error) {
+        console.error('Error fetching hotels:', error);
+      }
+    };
+
+    fetchHotels();
+  }, [currentPage]);
+
+  // Handle page change
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
   // Fetch hotel names for search
@@ -138,14 +179,22 @@ function HomePage() {
     }));
   };
 
+  
+
   return (
     <div className="home-page">
       <Header></Header>
+      <div className="bgimg-container"></div>
       <header className="hero-section">
-        <h1>Find Your Perfect Stay</h1>
+        <h1>Find Your Perfect deal, always</h1>
+        <br></br>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Similique officia non corrupti pariatur aspernatur sint modi commodi cum possimus blanditiis facilis beatae repellendus, autem voluptates ratione delectus architecto quae dolore.</p>
+        <br></br>
+        <br></br>
+        <br></br>
         <div className="search-bar">
           <div className="search-input-container">
-            <input
+            <input className = "hotelName"
               type="text"
               name="hotelSearch"
               placeholder="Enter hotel name or city"
@@ -167,20 +216,21 @@ function HomePage() {
               </div>
             )}
           </div>
-          <input
-            type="date"
-            name="checkInDate"
-            value={searchData.checkInDate}
-            onChange={handleInputChange}
-            min={new Date().toISOString().split('T')[0]}
-          />
-          <input
-            type="date"
-            name="checkOutDate"
-            value={searchData.checkOutDate}
-            onChange={handleInputChange}
-            min={searchData.checkInDate || new Date().toISOString().split('T')[0]}
-          />
+    <input
+    type="date"
+    name="checkInDate"
+    value={searchData.checkInDate}
+    onChange={handleInputChange}
+    min={new Date().toISOString().split('T')[0]}
+  />
+  <span class="divider"></span>
+  <input
+    type="date"
+    name="checkOutDate"
+    value={searchData.checkOutDate}
+    onChange={handleInputChange}
+    min={searchData.checkInDate || new Date().toISOString().split('T')[0]}
+  />
           <input
             type="number"
             name="persons"
@@ -251,7 +301,7 @@ function HomePage() {
           </div>
         </aside>
 
-        <section className="explore-hotels">
+        {/* <section className="explore-hotels">
           <h2>Explore Hotels</h2>
           <div className="hotels-grid">
             {filteredHotels.map((hotel) => (
@@ -268,7 +318,41 @@ function HomePage() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
+
+<section className="explore-hotels">
+      <h2>Explore Hotels</h2>
+      <div className="hotels-grid">
+  {currentHotels.map((hotel) => (
+    <div key={hotel.id} className="hotel-card">
+      <img src={hotel.image_url} alt={hotel.name} />
+      <div className="hotel-details">
+        <h3>{hotel.name}</h3>
+        <p>{hotel.city}</p>
+        <div className="price-and-button">
+          <p>₹{hotel.minPrice} - ₹{hotel.maxPrice}</p>
+          <button onClick={() => navigate(`/hotels/${hotel.id}`)}>View</button>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+      
+      {/* Pagination controls */}
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={index + 1 === currentPage ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+    </section>
+
       </div>
     </div>
   );

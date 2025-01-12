@@ -29,6 +29,34 @@
     color: #333;
   }
   
+  .bgimg-container {
+    position: absolute;
+    top: -10%;
+    right: 0;
+    width: 50%; /* Adjust width as needed */
+    height: 100%;
+    background-image: url('../assets/bgimg.png');
+    background-repeat: no-repeat;
+    background-size: contain; /* Ensures the image scales proportionally */
+    background-position: center right;
+    z-index: 1; /* Place it above containers but below text */
+    pointer-events: none; /* Ensures the image doesn't interfere with interactions */
+    
+    /* Apply linear opacity mask from top to bottom */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+  
+  
+  /* Ensure text elements have a higher z-index */
+  .hero-section, 
+  .nav, 
+  .main-content {
+    position: relative;
+    z-index: 0; /* Text stays above the background image */
+  }
+  
+  
   /* Hero Section */
   .hero-section {
     padding: 40px 0;
@@ -51,30 +79,70 @@
   /* Search Bar */
   .search-bar {
     display: flex;
-    gap: 12px;
+    gap: 0px;
     margin-bottom: 24px;
     align-items: flex-start;
+    opacity: 100%;
+    /* width: 80%; */
+    /* border: solid 2px black; */
   }
   
   .search-input-container {
     position: relative;
     flex: 2;
+    opacity: 100%;
+    width: 50%;
+    border: none;
   }
+/* 
+  .hotelName{
+    width: 10px                                       ;
+    border: solid 2px black;
+
+  } */
   
   .search-bar input {
     padding: 12px;
     border: 1px solid #e5e7eb;
     border-radius: 4px;
     font-size: 14px;
+    opacity: 100%;
+    width: 80%;
   }
   
   .search-bar input[type="text"] {
-    width: 100%;
+    width: 80%;
+    border: solid 2px #878787 ;
   }
   
-  .search-bar input[type="date"],
-  .search-bar input[type="number"] {
+  .search-bar input[type="date"]{
     width: 140px;
+  }
+
+  .search-bar input[type="date"] {
+    width: 140px;
+    height: 35px;
+    padding: 5px;
+    border: 2px solid #878787;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .search-bar .divider {
+    height: 45px; /* Adjust the height of the divider */
+    width: 0px; /* Thin vertical line */
+    background-color: #878787; /* Light gray color for the line */
+  }
+  .search-bar input[type="number"] {
+    width: 30px;
+    height: 20px;
+    background-image: url(../assets/mdi_people.png );
+    background-repeat: no-repeat;
+    background-position: 5px center; 
+    background-size: 20px 20px;
+    padding-left: 3%;
+    border: solid 2px #878787;
+    margin-left: 80px;
   }
   
   .search-bar button {
@@ -85,10 +153,13 @@
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
+    height: 45px;
+    margin-left: 20px;
   }
   
   .search-bar button:hover {
     background-color: #1557b0;
+   
   }
   
   /* Search Results Dropdown */
@@ -176,7 +247,7 @@
   }
   
   .filter-tag {
-    background: #f3f4f6;
+    background: #fff;
     padding: 4px 12px;
     border-radius: 16px;
     font-size: 14px;
@@ -188,8 +259,9 @@
   /* Hotels Grid */
   .explore-hotels {
     background: white;
+    /* opacity :0%; */
   }
-  
+
   .explore-header {
     display: flex;
     justify-content: space-between;
@@ -213,43 +285,59 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
+    /* height: 50px; */
   }
   
   .hotel-card {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     overflow: hidden;
+    height: 350px;
+    padding: 20px;
+    /* height: 10px; */
   }
   
   .hotel-card img {
-    width: 100%;
-    height: 200px;
+   
+    width: 90%;
+    
+    height: 50%;
     object-fit: cover;
   }
   
   .hotel-details {
-    padding: 16px;
+    padding: 6px;
+    height: 1px;
+    background-color: #fff;
   }
   
   .hotel-details h3 {
+    padding: 1px;
     font-size: 18px;
     margin-bottom: 8px;
     color: #1f2937;
   }
   
-  .hotel-details p {
-    color: #6b7280;
-    margin-bottom: 8px;
+  .price-and-button {
+    display: flex;
+    align-items: center; /* Align the button and price on the same line */
+    gap: 10px; /* Add space between the price and the button */
   }
   
-  .hotel-card button {
-    padding: 8px 16px;
-    background-color: #1a73e8;
+  .price-and-button p {
+    margin: 0;
+  }
+  
+  .price-and-button button {
+    padding: 5px 10px;
+    background-color: #007BFF;
     color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
+  }
+  
+  .price-and-button button:hover {
+    background-color: #0056b3;
   }
   
   /* Pagination */
