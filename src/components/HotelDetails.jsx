@@ -11,7 +11,7 @@ const HotelDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
-const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedRoom, setSelectedRoom] = useState(null);
 
   useEffect(() => {
     const fetchHotelDetails = async () => {
@@ -89,19 +89,17 @@ const [selectedRoom, setSelectedRoom] = useState(null);
               View facilities
             </button>
             <button 
-  className="book-now"
-  onClick={() => {
-    setSelectedRoom(room);
-    setIsBookingModalOpen(true);
-  }}
->
-  Book Now
-</button>
-
+              className="book-now"
+              onClick={() => {
+                setSelectedRoom(room);
+                setIsBookingModalOpen(true);
+              }}
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
-      
     );
   };
 
@@ -141,19 +139,20 @@ const [selectedRoom, setSelectedRoom] = useState(null);
         </div>
       </div>
       <Toaster />
-{selectedRoom && (
-  <BookingModal
-    isOpen={isBookingModalOpen}
-    onClose={() => {
-      setIsBookingModalOpen(false);
-      setSelectedRoom(null);
-    }}
-    hotelName={hotel.name}
-    roomName={selectedRoom.name}
-  />
-)}
+      {selectedRoom && (
+        <BookingModal
+          isOpen={isBookingModalOpen}
+          onClose={() => {
+            setIsBookingModalOpen(false);
+            setSelectedRoom(null);
+          }}
+          hotelName={hotel.name}
+          roomName={selectedRoom.name}
+          roomImage={selectedRoom.image_urls[0]}
+          amenities={selectedRoom.amenities}
+        />
+      )}
     </div>
-    
   );
 };
 

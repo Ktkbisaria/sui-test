@@ -5,7 +5,14 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import './BookingModal.css';
 
-const BookingModal = ({ isOpen, onClose, hotelName, roomName }) => {
+const BookingModal = ({ 
+  isOpen, 
+  onClose, 
+  hotelName, 
+  roomName, 
+  roomImage,
+  amenities 
+}) => {
   const [guests, setGuests] = useState([{ name: '', age: '', gender: 'Male' }]);
   const [checkIn, setCheckIn] = useState(null);
   const [checkOut, setCheckOut] = useState(null);
@@ -49,7 +56,6 @@ const BookingModal = ({ isOpen, onClose, hotelName, roomName }) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Here you would typically make an API call to save the booking
       toast.success('Booking successful!', {
         duration: 3000,
         position: 'top-center',
@@ -71,6 +77,20 @@ const BookingModal = ({ isOpen, onClose, hotelName, roomName }) => {
           <button onClick={onClose} className="close-button">
             <X size={24} />
           </button>
+        </div>
+
+        <div className="room-preview">
+          <img src={roomImage} alt={roomName} className="room-preview-image" />
+          <div className="amenities-list">
+            <h4>Room Amenities</h4>
+            <div className="amenities-grid">
+              {amenities.map((amenity, index) => (
+                <div key={index} className="amenity-item">
+                  {amenity}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="booking-form">
