@@ -14,6 +14,7 @@ function HomePage() {
   const [searchData, setSearchData] = useState({
     selectedHotel: null,
     checkInDate: '',
+    hotelId: null, // Added hotelId to track selected hotel's ID
     checkOutDate: '',
     persons: 1,
   });
@@ -111,73 +112,105 @@ function HomePage() {
   }, [searchQuery]);
 
   const handleSearchSelect = (hotel) => {
-    setSearchData(prev => ({ ...prev, selectedHotel: hotel }));
+    setSearchData(prev => ({ 
+      ...prev, 
+      selectedHotel: hotel,
+      hotelId: hotel.id // Store the hotel ID when selected
+    }));
     setSearchQuery(hotel.name);
     setShowSearchResults(false);
   };
 
-  const handleInputChange = (e) => {
+
+ const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === 'hotelSearch') {
       setSearchQuery(value);
       if (!value) {
-        setSearchData(prev => ({ ...prev, selectedHotel: null }));
+        setSearchData(prev => ({ 
+          ...prev, 
+          selectedHotel: null,
+          hotelId: null // Clear hotel ID when search is cleared
+        }));
       }
     } else {
       setSearchData(prev => ({ ...prev, [name]: value }));
     }
   };
 
+
   const handleSearch = () => {
-    const { selectedHotel, checkInDate, checkOutDate, persons } = searchData;
-    if (!selectedHotel || !checkInDate || !checkOutDate || persons < 1) {
+    const { hotelId, checkInDate, checkOutDate, persons } = searchData;
+    if (!hotelId || !checkInDate || !checkOutDate || persons < 1) {
       setError('All fields are mandatory!');
       return;
     }
     setError('');
-    navigate('/explore-hotels', { state: { searchData } });
+    // Navigate to the hotel detail page with the specific hotel ID
+    navigate(`/hotels/${hotelId}`, { 
+      state: { 
+        searchData: {
+          ...searchData,
+          checkInDate,
+          checkOutDate,
+          persons
+        } 
+      }
+    });
   };
+// Add this function before the `return` statement of the component
+const applyFilters = () => {
+  let filtered = [...hotels];
 
-  const applyFilters = () => {
-    let filtered = [...hotels];
+  // Apply rating filter
+  if (filters.rating.length > 0) {
+    filtered = filtered.filter((hotel) =>
+      filters.rating.some((rating) => {
+        const hotelRating = hotel.rating || 0; // Default rating to 0 if undefined
+        return hotelRating >= Number(rating) && hotelRating < Number(rating) + 1;
+      })
+    );
+  }
 
-    if (filters.rating.length > 0) {
-      filtered = filtered.filter(hotel => 
-        filters.rating.some(rating => hotel.rating >= rating && hotel.rating < Number(rating) + 1)
+  // Apply price range filter
+ // Updated price range filter logic
+if (filters.priceRange.length > 0) {
+  filtered = filtered.filter(hotel =>
+    filters.priceRange.some(range => {
+      const [min, max] = range.split('-').map(Number);
+      return hotel.rooms.some(room =>
+        room.price >= min && (max ? room.price <= max : true)
       );
-    }
+    })
+  );
+}
 
-    if (filters.priceRange.length > 0) {
-      filtered = filtered.filter(hotel => 
-        filters.priceRange.some(range => {
-          const [min, max] = range.split('-').map(Number);
-          return hotel.minPrice >= min && hotel.maxPrice <= (max || Infinity);
-        })
-      );
-    }
+  // Apply city filter
+  if (filters.city.length > 0) {
+    filtered = filtered.filter((hotel) =>
+      filters.city.includes(hotel.city)
+    );
+  }
 
-    if (filters.city.length > 0) {
-      filtered = filtered.filter(hotel => 
-        filters.city.includes(hotel.city)
-      );
-    }
+  setFilteredHotels(filtered);
+};
 
-    setFilteredHotels(filtered);
-  };
+// Update this `useEffect` block to recalculate filters whenever `filters` or `hotels` change
+useEffect(() => {
+  applyFilters();
+}, [filters, hotels]);
 
-  useEffect(() => {
-    applyFilters();
-  }, [filters]);
+// Handle filter changes and update the state
+const handleFilterChange = (e, category) => {
+  const { value, checked } = e.target;
+  setFilters((prev) => ({
+    ...prev,
+    [category]: checked
+      ? [...prev[category], value]
+      : prev[category].filter((item) => item !== value),
+  }));
+};
 
-  const handleFilterChange = (e, category) => {
-    const { value, checked } = e.target;
-    setFilters(prev => ({
-      ...prev,
-      [category]: checked
-        ? [...prev[category], value]
-        : prev[category].filter(item => item !== value)
-    }));
-  };
 
   
 
@@ -301,24 +334,7 @@ function HomePage() {
           </div>
         </aside>
 
-        {/* <section className="explore-hotels">
-          <h2>Explore Hotels</h2>
-          <div className="hotels-grid">
-            {filteredHotels.map((hotel) => (
-              <div key={hotel.id} className="hotel-card">
-                <img src={hotel.imageUrl} alt={hotel.name} />
-                <div className="hotel-details">
-                  <h3>{hotel.name}</h3>
-                  <p>{hotel.city}</p>
-                  <p>₹{hotel.minPrice} - ₹{hotel.maxPrice}</p>
-                  <button onClick={() => navigate(`/hotels/${hotel.id}`)}>
-                    View
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section> */}
+    
 
 <section className="explore-hotels">
       <h2>Explore Hotels</h2>

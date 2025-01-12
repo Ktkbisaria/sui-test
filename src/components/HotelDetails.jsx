@@ -5,6 +5,7 @@ import './HotelDetails.css';
 import { Toaster } from 'react-hot-toast';
 import BookingModal from './BookingModal';
 import FacilitiesModal from './FacilitiesModal';
+import Header from '../pages/Header';
 
 const HotelDetails = () => {
   const { id } = useParams();
@@ -114,7 +115,9 @@ const HotelDetails = () => {
   };
 
   return (
+   
     <div className="hotel-details">
+       <Header></Header>
       <div className="hero">
         <img src={hotel.image_url} alt={hotel.name} className="hero-image" />
         <div className="hero-overlay">

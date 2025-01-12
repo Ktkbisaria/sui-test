@@ -22,19 +22,22 @@
   height: 297px;
   margin: 0 auto;
   overflow: hidden;
+  padding-top: var(--header-height); /* Use a CSS variable or calc if needed */
 }
 
 .hero-image {
+  max-width: 1280px; /* Matches header's max-width */
   width: 100%;
-  height: 100%;
+  height: 70vh; /* 70% of viewport height for a good hero size */
   object-fit: cover;
   transition: transform 0.5s ease;
+  margin: 0 auto; /* Centers the image */
+  padding: 0 4rem; /* Matches header's padding */
 }
 
 .hero:hover .hero-image {
   transform: scale(1.05);
 }
-
 .hero-overlay {
   position: absolute;
   inset: 0;
@@ -282,4 +285,9 @@
   .book-now {
     width: 100%;
   }
+  .hero-image {
+    padding: 0 2rem;
+    height: 50vh; /* Smaller height on mobile */
+  }
+
 }

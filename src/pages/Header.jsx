@@ -11,9 +11,9 @@ function Header() {
        <img src={logo} alt = "logo"></img>
       </div>
       <nav className="navigation">
-        <Link to="/homes">Homes</Link>
-        <Link to="/hotels">Hotels</Link>
-        <Link to="/plac">Places</Link>
+        <Link to="/">Homes</Link>
+        <Link to="/hotels/:id">Hotels</Link>
+        <Link to="/explore-hotels">Places</Link>
       </nav>
     </header>
   );
